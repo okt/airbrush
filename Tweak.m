@@ -114,36 +114,22 @@ ZKSwizzleInterface(RemoveBez, NSButtonBezelView, NSView)
 @end
 
 #pragma mark Toolbar Backgrounds
-ZKSwizzleInterface(ToolbarBackground, NSToolbarView, NSView)
 ZKSwizzleInterface(TitlebarBackground, NSTitlebarView, NSView)
+ZKSwizzleInterface(ToolbarBackground, NSToolbarView, NSView)
 
-@implementation ToolbarBackground
-	-(void)viewDidMoveToWindow
-	{
-		NSImageView *toolbarImage = [NSImageView new];
-		[self addSubview:toolbarImage];
-		toolbarImage.image = [[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/Titlebar.png", FilePath]];
-		toolbarImage.translatesAutoresizingMaskIntoConstraints = NO;
-		[toolbarImage setImageScaling: NSImageScaleAxesIndependently];
-		[toolbarImage.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
-		[toolbarImage.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
-		[toolbarImage.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
-		[toolbarImage.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
-		ZKOrig(void);
+@implementation TitlebarBackground
+	-(void)viewDidMoveToSuperview
+   {
+	   ZKOrig(void);
+	   self.wantsLayer = YES;
+	   self.layer.contents = [[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/Titlebar.png", FilePath]];
 	}
 @end
-@implementation TitlebarBackground
-	-(void)viewDidMoveToWindow
+@implementation ToolbarBackground
+	-(void)viewDidMoveToSuperview
    {
-	   NSImageView *toolbarImage = [NSImageView new];
-	   [self addSubview:toolbarImage];
-	   toolbarImage.image = [[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/Titlebar.png", FilePath]];
-	   toolbarImage.translatesAutoresizingMaskIntoConstraints = NO;
-	   [toolbarImage setImageScaling: NSImageScaleAxesIndependently];
-	   [toolbarImage.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
-	   [toolbarImage.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
-	   [toolbarImage.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
-	   [toolbarImage.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
 	   ZKOrig(void);
-   }
+	   self.wantsLayer = YES;
+	   self.layer.contents = [[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/Titlebar.png", FilePath]];
+	}
 @end
