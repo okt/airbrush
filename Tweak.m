@@ -118,13 +118,18 @@ ZKSwizzleInterface(ToolbarBackground, NSToolbarView, NSView)
 ZKSwizzleInterface(TitlebarBackground, NSTitlebarView, NSView)
 
 @implementation ToolbarBackground
-	-(void)didMoveToSuperview
+	-(void)viewDidMoveToWindow
 	{
-		ZKOrig(void);
 		NSImageView *toolbarImage = [NSImageView new];
 		[self addSubview:toolbarImage];
 		toolbarImage.image = [[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/Toolbar.png", FilePath]];
-		toolbarImage.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+		toolbarImage.translatesAutoresizingMaskIntoConstraints = NO;
+		[toolbarImage setImageScaling: NSImageScaleAxesIndependently];
+		[toolbarImage.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
+		[toolbarImage.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
+		[toolbarImage.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
+		[toolbarImage.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
+		ZKOrig(void);
 	}
 @end
 @implementation TitlebarBackground
