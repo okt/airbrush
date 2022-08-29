@@ -122,7 +122,7 @@ ZKSwizzleInterface(TitlebarBackground, NSTitlebarView, NSView)
 	{
 		NSImageView *toolbarImage = [NSImageView new];
 		[self addSubview:toolbarImage];
-		toolbarImage.image = [[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/Toolbar.png", FilePath]];
+		toolbarImage.image = [[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/Titlebar.png", FilePath]];
 		toolbarImage.translatesAutoresizingMaskIntoConstraints = NO;
 		[toolbarImage setImageScaling: NSImageScaleAxesIndependently];
 		[toolbarImage.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
@@ -133,8 +133,17 @@ ZKSwizzleInterface(TitlebarBackground, NSTitlebarView, NSView)
 	}
 @end
 @implementation TitlebarBackground
-	-(void)drawRect:(NSRect)dirtyRect
-	{
-		[[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/Segment.png", FilePath]] drawInRect:dirtyRect];
-	}
+	-(void)viewDidMoveToWindow
+   {
+	   NSImageView *toolbarImage = [NSImageView new];
+	   [self addSubview:toolbarImage];
+	   toolbarImage.image = [[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/Titlebar.png", FilePath]];
+	   toolbarImage.translatesAutoresizingMaskIntoConstraints = NO;
+	   [toolbarImage setImageScaling: NSImageScaleAxesIndependently];
+	   [toolbarImage.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
+	   [toolbarImage.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
+	   [toolbarImage.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
+	   [toolbarImage.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
+	   ZKOrig(void);
+   }
 @end
