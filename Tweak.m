@@ -121,15 +121,21 @@ ZKSwizzleInterface(ToolbarBackground, NSToolbarView, NSView)
 	-(void)viewDidMoveToSuperview
    {
 	   ZKOrig(void);
-	   self.wantsLayer = YES;
-	   self.layer.contents = [[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/Titlebar.png", FilePath]];
+	   if (!self.window.titlebarAppearsTransparent)
+	   {
+		   self.wantsLayer = YES;
+		   self.layer.contents = [[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/Titlebar.png", FilePath]];
+	   }
 	}
 @end
 @implementation ToolbarBackground
 	-(void)viewDidMoveToSuperview
    {
 	   ZKOrig(void);
-	   self.wantsLayer = YES;
-	   self.layer.contents = [[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/Titlebar.png", FilePath]];
+	   if (!self.window.titlebarAppearsTransparent)
+	   {
+		   self.wantsLayer = YES;
+		   self.layer.contents = [[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/Titlebar.png", FilePath]];
+	   }
 	}
 @end
