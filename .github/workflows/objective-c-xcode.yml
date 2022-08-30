@@ -34,7 +34,7 @@ jobs:
       #
 
       - name: Package for Distribution
-        run: ditto -V -c -k --keepParent "Release/airbrush.bundle" "airbrush.zip"
+        run: ditto -V -c -k --keepParent "build/Release/airbrush.bundle" "airbrush.zip"
 
       - name: Release app
         uses: softprops/action-gh-release@v1
