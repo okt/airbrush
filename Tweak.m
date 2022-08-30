@@ -72,12 +72,24 @@ ZKSwizzleInterface(RemoveBez, NSButtonBezelView, NSView)
 	{
 		if (self.isSpace == NO)
 		{
-			if (self.bounds.size.width < 40)
+			if (self.window.toolbarStyle != NSWindowToolbarStyleUnifiedCompact)
 			{
-				[[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/SegmentBackAlt.png", FilePath]] drawInRect:dirtyRect];
+				if (self.bounds.size.width < 40)
+				{
+					[[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/SegmentBackAlt.png", FilePath]] drawInRect:dirtyRect];
+				} else
+				{
+					[[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/SegmentBack.png", FilePath]] drawInRect:dirtyRect withCapInsets:TMEdgeInsetsMake(17, 25, 17, 25)];
+				}
 			} else
 			{
-				[[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/SegmentBack.png", FilePath]] drawInRect:dirtyRect withCapInsets:TMEdgeInsetsMake(17, 25, 17, 25)];
+				if (self.bounds.size.width < 40)
+				{
+					[[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/MiniSegmentBackAlt.png", FilePath]] drawInRect:dirtyRect];
+				} else
+				{
+					[[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/MiniSegmentBack.png", FilePath]] drawInRect:dirtyRect withCapInsets:TMEdgeInsetsMake(17, 25, 17, 25)];
+				}
 			}
 		} else
 		{
@@ -123,8 +135,11 @@ ZKSwizzleInterface(ToolbarBackground, NSToolbarView, NSView)
 	   ZKOrig(void);
 	   if (!self.window.titlebarAppearsTransparent)
 	   {
-		   self.wantsLayer = YES;
-		   self.layer.contents = [[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/Titlebar.png", FilePath]];
+		   if (!self.window.toolbar)
+		   {
+			   self.wantsLayer = YES;
+			   self.layer.contents = [[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/Titlebar.png", FilePath]];
+		   }
 	   }
 	}
 @end
