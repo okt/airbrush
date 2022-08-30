@@ -109,7 +109,7 @@ ZKSwizzleInterface(RemoveBez, NSButtonBezelView, NSView)
 
 	-(BOOL)canDrawConcurrently
    {
-	   return NO;
+	   return YES;
    }
 @end
 @implementation RemoveBez
