@@ -18,7 +18,7 @@ NSString *appID;
     +(void)load
 	{
 		FilePath = [[NSString alloc] initWithFormat:@"/Library/Airbrush"];
-		titlebarBlacklist = @[@"com.apple.Finder", @"com.google.Chrome", @"org.mozilla.firefox"];
+		titlebarBlacklist = @[@"com.apple.Finder", @"com.google.Chrome", @"org.mozilla.firefox", @"com.apple.coreservices.uiagent"];
 		appID = [[NSBundle mainBundle] bundleIdentifier];
 	}
 @end
