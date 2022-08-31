@@ -77,27 +77,33 @@ ZKSwizzleInterface(RemoveBez, NSButtonBezelView, NSView)
 @implementation SegmentDrawing
 	-(void)drawRect:(NSRect)dirtyRect
 	{
-		if (self.isSpace == NO)
+		if (self.bounds.size.width < 20)
 		{
-			if (self.window.toolbarStyle != NSWindowToolbarStyleUnifiedCompact)
-			{
-				if (self.bounds.size.width < 40)
-				{
-					[[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/SegmentBackAlt.png", FilePath]] drawInRect:dirtyRect];
-				} else
-				{
-					[[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/SegmentBack.png", FilePath]] drawInRect:dirtyRect withCapInsets:TMEdgeInsetsMake(17, 25, 17, 25)];
-				}
-			} else
-			{
-				if (self.bounds.size.width < 40)
-				{
-					[[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/MiniSegmentBackAlt.png", FilePath]] drawInRect:dirtyRect];
-				} else
-				{
-					[[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/MiniSegmentBack.png", FilePath]] drawInRect:dirtyRect withCapInsets:TMEdgeInsetsMake(17, 25, 17, 25)];
-				}
-			}
+			if (self.isSpace == NO)
+			 {
+				 if (self.window.toolbarStyle != NSWindowToolbarStyleUnifiedCompact)
+				 {
+					 if (self.bounds.size.width < 40)
+					 {
+						 [[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/SegmentBackAlt.png", FilePath]] drawInRect:dirtyRect];
+					 } else
+					 {
+						 [[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/SegmentBack.png", FilePath]] drawInRect:dirtyRect withCapInsets:TMEdgeInsetsMake(17, 25, 17, 25)];
+					 }
+				 } else
+				 {
+					 if (self.bounds.size.width < 40)
+					 {
+						 [[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/MiniSegmentBackAlt.png", FilePath]] drawInRect:dirtyRect];
+					 } else
+					 {
+						 [[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/MiniSegmentBack.png", FilePath]] drawInRect:dirtyRect withCapInsets:TMEdgeInsetsMake(17, 25, 17, 25)];
+					 }
+				 }
+			 } else
+			 {
+				 ZKOrig(void, dirtyRect);
+			 }
 		} else
 		{
 			ZKOrig(void, dirtyRect);
