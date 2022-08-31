@@ -77,7 +77,7 @@ ZKSwizzleInterface(RemoveBez, NSButtonBezelView, NSView)
 @implementation SegmentDrawing
 	-(void)drawRect:(NSRect)dirtyRect
 	{
-		if (self.bounds.size.width < 20)
+		if (self.bounds.size.width > 19)
 		{
 			if (self.isSpace == NO)
 			 {
