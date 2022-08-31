@@ -11,9 +11,16 @@
 
 #pragma mark Main CTor
 NSString *FilePath;
+NSArray *titlebarBlacklist;
+NSString *appID;
 @interface Main : NSObject {} @end
 @implementation Main
-    +(void)load { FilePath = [[NSString alloc] initWithFormat:@"/Library/Airbrush"]; }
+    +(void)load
+	{
+		FilePath = [[NSString alloc] initWithFormat:@"/Library/Airbrush"];
+		titlebarBlacklist = @[@"com.apple.Finder", @"com.google.Chrome", @"org.mozilla.firefox"];
+		appID = [[NSBundle mainBundle] bundleIdentifier];
+	}
 @end
 
 #pragma mark Window Button Controls
@@ -129,28 +136,24 @@ ZKSwizzleInterface(RemoveBez, NSButtonBezelView, NSView)
 ZKSwizzleInterface(TitlebarBackground, NSTitlebarView, NSView)
 ZKSwizzleInterface(ToolbarBackground, NSToolbarView, NSView)
 
+
+
 @implementation TitlebarBackground
 	-(void)viewDidMoveToSuperview
-   {
-	   ZKOrig(void);
-	   if (!self.window.titlebarAppearsTransparent)
-	   {
-		   if (!self.window.toolbar)
-		   {
-			   self.wantsLayer = YES;
-			   self.layer.contents = [[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/Titlebar.png", FilePath]];
-		   }
-	   }
+	{
+		ZKOrig(void);
+		if (![titlebarBlacklist containsObject:appID])
+		{
+			self.wantsLayer = YES;
+			self.layer.contents = [[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/Titlebar.png", FilePath]];
+		}
 	}
 @end
 @implementation ToolbarBackground
 	-(void)viewDidMoveToSuperview
-   {
+	{
 	   ZKOrig(void);
-	   if (!self.window.titlebarAppearsTransparent)
-	   {
-		   self.wantsLayer = YES;
-		   self.layer.contents = [[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/Titlebar.png", FilePath]];
-	   }
+	   self.wantsLayer = YES;
+	   self.layer.contents = [[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/Titlebar.png", FilePath]];
 	}
 @end
