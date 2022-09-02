@@ -7,6 +7,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "ini.h"
+#import "Prefs.h"
 #import "ZKSwizzle.h"
 #import "NSImage+Stretchable.h"
 
@@ -14,8 +15,7 @@
 NSString *FilePath;
 NSArray *titlebarBlacklist;
 NSString *appID;
-NSString *nine_slice;
-NSString *creator;
+
 
 @interface Main : NSObject {} @end
 @implementation Main
@@ -27,28 +27,17 @@ NSString *creator;
 		
 		[[NSFileManager defaultManager] createDirectoryAtPath: FilePath withIntermediateDirectories:YES attributes:nil error:nil];
 		
-		ini_t *config;
-		@try {
+		@try
+		{
+			ini_t *config;
 			config = ini_load("/Library/Airbrush/Config.ini");
+			
+			nine_slice = [NSString stringWithUTF8String:ini_get(config, "Settings", "NineSlicing")];
+			creator = [NSString stringWithUTF8String:ini_get(config, "Settings", "Author")];
+			
 		} @catch (NSException *exception) {
 			NSLog(@"Real rocky right here!");
 		}
-		
-		
-		nine_slice = [NSString stringWithUTF8String:ini_get(config, "Settings", "NineSlicing")];
-		creator = [NSString stringWithUTF8String:ini_get(config, "Settings", "Author")];
-		
-		
-		if (nine_slice)
-		{
-			NSLog(@"%@",nine_slice);
-		}
-		if (creator)
-		{
-			NSLog(@"%@",creator);
-		}
-		
-		
 	}
 @end
 

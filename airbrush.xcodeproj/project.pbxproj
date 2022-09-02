@@ -16,6 +16,7 @@
 /* Begin PBXFileReference section */
 		9D2AE18B28C13F960015EA2D /* ini.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ini.h; sourceTree = "<group>"; };
 		9D2AE18C28C13F960015EA2D /* ini.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ini.c; sourceTree = "<group>"; };
+		9D7A79E228C20AAD00EE3253 /* Prefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefs.h; sourceTree = "<group>"; };
 		C15DE4D7286FA4EA00EE7093 /* NSImage+Stretchable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSImage+Stretchable.h"; sourceTree = "<group>"; };
 		C15DE4D8286FA4EA00EE7093 /* NSImage+Stretchable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSImage+Stretchable.m"; sourceTree = "<group>"; };
 		C1868927286F3C9900CB3B2E /* airbrush.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = airbrush.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,6 +46,7 @@
 				C15DE4D8286FA4EA00EE7093 /* NSImage+Stretchable.m */,
 				C1868959286F61AF00CB3B2E /* Info.plist */,
 				C1868934286F3EE900CB3B2E /* Tweak.m */,
+				9D7A79E228C20AAD00EE3253 /* Prefs.h */,
 				C186892E286F3D6000CB3B2E /* ZKSwizzle.h */,
 				C186892F286F3D6000CB3B2E /* ZKSwizzle.m */,
 				C1868928286F3C9900CB3B2E /* Products */,
