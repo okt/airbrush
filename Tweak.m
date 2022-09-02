@@ -14,6 +14,9 @@
 NSString *FilePath;
 NSArray *titlebarBlacklist;
 NSString *appID;
+NSString *nine_slice;
+NSString *creator;
+
 @interface Main : NSObject {} @end
 @implementation Main
     +(void)load
@@ -21,6 +24,31 @@ NSString *appID;
 		FilePath = [[NSString alloc] initWithFormat:@"/Library/Airbrush"];
 		titlebarBlacklist = @[@"com.apple.Finder", @"com.google.Chrome", @"org.mozilla.firefox", @"com.apple.coreservices.uiagent"];
 		appID = [[NSBundle mainBundle] bundleIdentifier];
+		
+		[[NSFileManager defaultManager] createDirectoryAtPath: FilePath withIntermediateDirectories:YES attributes:nil error:nil];
+		
+		ini_t *config;
+		@try {
+			config = ini_load("/Library/Airbrush/Config.ini");
+		} @catch (NSException *exception) {
+			NSLog(@"Real rocky right here!");
+		}
+		
+		
+		nine_slice = [NSString stringWithUTF8String:ini_get(config, "Settings", "NineSlicing")];
+		creator = [NSString stringWithUTF8String:ini_get(config, "Settings", "Author")];
+		
+		
+		if (nine_slice)
+		{
+			NSLog(@"%@",nine_slice);
+		}
+		if (creator)
+		{
+			NSLog(@"%@",creator);
+		}
+		
+		
 	}
 @end
 
