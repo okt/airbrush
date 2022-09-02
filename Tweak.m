@@ -27,17 +27,12 @@ NSString *appID;
 		
 		[[NSFileManager defaultManager] createDirectoryAtPath: FilePath withIntermediateDirectories:YES attributes:nil error:nil];
 		
-		@try
-		{
-			ini_t *config;
-			config = ini_load("/Library/Airbrush/Config.ini");
-			
-			nine_slice = [NSString stringWithUTF8String:ini_get(config, "Settings", "NineSlicing")];
-			creator = [NSString stringWithUTF8String:ini_get(config, "Settings", "Author")];
-			
-		} @catch (NSException *exception) {
-			NSLog(@"Real rocky right here!");
-		}
+
+		ini_t *config;
+		config = ini_load("/Library/Airbrush/Config.ini");
+		
+		nine_slice = [NSString stringWithUTF8String:ini_get(config, "Settings", "NineSlicing")];
+		creator = [NSString stringWithUTF8String:ini_get(config, "Settings", "Author")];
 	}
 @end
 
@@ -76,20 +71,18 @@ ZKSwizzleInterface(CloseDrawing, _NSThemeCloseWidget, NSButton)
 
 
 #pragma mark Toolbar Control Theming
-ZKSwizzleInterface(SegmentBGDrawing, NSSegmentItemView, NSButton)
+ZKSwizzleInterface(SegmentSetDrawsBezel, NSSegmentItemView, NSButton)
 ZKSwizzleInterface(SegmentDrawing, NSToolbarItemViewer, NSView)
-ZKSwizzleInterface(RemoveBez, NSButtonBezelView, NSView)
 
-@implementation SegmentBGDrawing
+@implementation SegmentSetDrawsBezel
 	-(void)drawRect:(NSRect)dirtyRect
 	{
-		[[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/Segment.png", FilePath]] drawInRect:dirtyRect];
 		[self setDrawsBezel: NO];
 	}
 
 	-(void)setDrawsBezel:(BOOL)arg1
 	{
-		ZKOrig(void, arg1);
+		ZKOrig(void, NO);
 	}
 @end
 @implementation SegmentDrawing
@@ -142,18 +135,6 @@ ZKSwizzleInterface(RemoveBez, NSButtonBezelView, NSView)
    {
 	   return YES;
    }
-@end
-@implementation RemoveBez
-	-(BOOL)isHidden
-	{
-		if ([self.superview.superview.className isEqual:@"NSToolbarItemViewer"])
-		{
-			return YES;
-		} else
-		{
-			return ZKOrig(BOOL);
-		}
-	}
 @end
 
 #pragma mark Toolbar Backgrounds
