@@ -7,12 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D2AE18D28C13F960015EA2D /* ini.c in Sources */ = {isa = PBXBuildFile; fileRef = 9D2AE18C28C13F960015EA2D /* ini.c */; };
 		C15DE4D9286FA4EA00EE7093 /* NSImage+Stretchable.m in Sources */ = {isa = PBXBuildFile; fileRef = C15DE4D8286FA4EA00EE7093 /* NSImage+Stretchable.m */; };
 		C1868930286F3D6100CB3B2E /* ZKSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = C186892F286F3D6000CB3B2E /* ZKSwizzle.m */; };
 		C1868935286F3EE900CB3B2E /* Tweak.m in Sources */ = {isa = PBXBuildFile; fileRef = C1868934286F3EE900CB3B2E /* Tweak.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9D2AE18B28C13F960015EA2D /* ini.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ini.h; sourceTree = "<group>"; };
+		9D2AE18C28C13F960015EA2D /* ini.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ini.c; sourceTree = "<group>"; };
 		C15DE4D7286FA4EA00EE7093 /* NSImage+Stretchable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSImage+Stretchable.h"; sourceTree = "<group>"; };
 		C15DE4D8286FA4EA00EE7093 /* NSImage+Stretchable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSImage+Stretchable.m"; sourceTree = "<group>"; };
 		C1868927286F3C9900CB3B2E /* airbrush.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = airbrush.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -36,6 +39,8 @@
 		C186891E286F3C9900CB3B2E = {
 			isa = PBXGroup;
 			children = (
+				9D2AE18B28C13F960015EA2D /* ini.h */,
+				9D2AE18C28C13F960015EA2D /* ini.c */,
 				C15DE4D7286FA4EA00EE7093 /* NSImage+Stretchable.h */,
 				C15DE4D8286FA4EA00EE7093 /* NSImage+Stretchable.m */,
 				C1868959286F61AF00CB3B2E /* Info.plist */,
@@ -128,6 +133,7 @@
 			files = (
 				C15DE4D9286FA4EA00EE7093 /* NSImage+Stretchable.m in Sources */,
 				C1868935286F3EE900CB3B2E /* Tweak.m in Sources */,
+				9D2AE18D28C13F960015EA2D /* ini.c in Sources */,
 				C1868930286F3D6100CB3B2E /* ZKSwizzle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

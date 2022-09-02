@@ -6,6 +6,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "ini.h"
 #import "ZKSwizzle.h"
 #import "NSImage+Stretchable.h"
 
