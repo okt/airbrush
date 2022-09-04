@@ -138,27 +138,19 @@ ZKSwizzleInterface(SegmentDrawing, NSToolbarItemViewer, NSView)
 @end
 
 #pragma mark Toolbar Backgrounds
-ZKSwizzleInterface(TitlebarBackground, NSTitlebarView, NSView)
 ZKSwizzleInterface(ToolbarBackground, NSToolbarView, NSView)
 
-
-
-@implementation TitlebarBackground
-	-(void)viewDidMoveToSuperview
-	{
-		ZKOrig(void);
-		if (![titlebarBlacklist containsObject:appID])
-		{
-			self.wantsLayer = YES;
-			self.layer.contents = [[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/Titlebar.png", FilePath]];
-		}
-	}
-@end
 @implementation ToolbarBackground
 	-(void)viewDidMoveToSuperview
 	{
-	   ZKOrig(void);
-	   self.wantsLayer = YES;
-	   self.layer.contents = [[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/Titlebar.png", FilePath]];
+		ZKOrig(void);
+		if (self.window.toolbarStyle != NSWindowToolbarStyleUnifiedCompact)
+		{
+			self.wantsLayer = YES;
+		 	self.layer.contents = [[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/Titlebar.png", FilePath]];
+		} else {
+			self.wantsLayer = YES;
+			self.layer.contents = [[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/MiniTitlebar.png", FilePath]];
+		}
 	}
 @end
