@@ -146,6 +146,24 @@ ZKSwizzleInterface(SegmentDrawing, NSToolbarItemViewer, NSView)
 #pragma mark Toolbar Backgrounds
 ZKSwizzleInterface(ToolbarBackground, NSToolbarView, NSView)
 ZKSwizzleInterface(TitlebarBackground, NSTitlebarView, NSView)
+ZKSwizzleInterface(TitlebarBackgroundFix, NSVisualEffectView, NSView)
+
+@implementation TitlebarBackgroundFix
+	-(void)updateLayer
+	{
+		ZKOrig(void);
+		if ([self.superview.className isEqual:@"NSTitlebarView"])
+		{
+			[self removeFromSuperview];
+		}
+	}
+
+	-(BOOL)canDrawConcurrently
+	{
+		return YES;
+	}
+@end
+
 
 @implementation TitlebarBackground
 	-(void)viewDidMoveToSuperview
