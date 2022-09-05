@@ -27,12 +27,16 @@ NSString *appID;
 		
 		[[NSFileManager defaultManager] createDirectoryAtPath: FilePath withIntermediateDirectories:YES attributes:nil error:nil];
 		
-
-		ini_t *config;
-		config = ini_load("/Library/Airbrush/Config.ini");
-		
-		nine_slice = [NSString stringWithUTF8String:ini_get(config, "Settings", "NineSlicing")];
-		creator = [NSString stringWithUTF8String:ini_get(config, "Settings", "Author")];
+		if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Library/Airbrush/Config.ini"])
+		{
+			ini_t *config;
+			config = ini_load("/Library/Airbrush/Config.ini");
+			
+			nine_slice = [NSString stringWithUTF8String:ini_get(config, "Settings", "NineSlicing")];
+		} else
+		{
+			nine_slice = @"17, 25, 17, 25";
+		}
 	}
 @end
 
@@ -88,9 +92,11 @@ ZKSwizzleInterface(SegmentDrawing, NSToolbarItemViewer, NSView)
 @implementation SegmentDrawing
 	-(void)drawRect:(NSRect)dirtyRect
 	{
-		if (self.bounds.size.width > 19)
+		NSArray *slices = [nine_slice componentsSeparatedByString:@","];
+		
+		if (self.isSpace == NO)
 		{
-			if (self.isSpace == NO)
+			if (self.bounds.size.width > 19)
 			 {
 				 if (self.window.toolbarStyle != NSWindowToolbarStyleUnifiedCompact)
 				 {
@@ -99,7 +105,7 @@ ZKSwizzleInterface(SegmentDrawing, NSToolbarItemViewer, NSView)
 						 [[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/SegmentBackAlt.png", FilePath]] drawInRect:dirtyRect];
 					 } else
 					 {
-						 [[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/SegmentBack.png", FilePath]] drawInRect:dirtyRect withCapInsets:TMEdgeInsetsMake(17, 25, 17, 25)];
+						 [[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/SegmentBack.png", FilePath]] drawInRect:dirtyRect withCapInsets:TMEdgeInsetsMake([slices[0] floatValue], [slices[1] floatValue], [slices[2] floatValue], [slices[3] floatValue])];
 					 }
 				 } else
 				 {
@@ -108,7 +114,7 @@ ZKSwizzleInterface(SegmentDrawing, NSToolbarItemViewer, NSView)
 						 [[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/MiniSegmentBackAlt.png", FilePath]] drawInRect:dirtyRect];
 					 } else
 					 {
-						 [[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/MiniSegmentBack.png", FilePath]] drawInRect:dirtyRect withCapInsets:TMEdgeInsetsMake(17, 25, 17, 25)];
+						 [[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/MiniSegmentBack.png", FilePath]] drawInRect:dirtyRect withCapInsets:TMEdgeInsetsMake([slices[0] floatValue], [slices[1] floatValue], [slices[2] floatValue], [slices[3] floatValue])];
 					 }
 				 }
 			 } else
@@ -139,6 +145,17 @@ ZKSwizzleInterface(SegmentDrawing, NSToolbarItemViewer, NSView)
 
 #pragma mark Toolbar Backgrounds
 ZKSwizzleInterface(ToolbarBackground, NSToolbarView, NSView)
+ZKSwizzleInterface(TitlebarBackground, NSTitlebarView, NSView)
+
+@implementation TitlebarBackground
+	-(void)viewDidMoveToSuperview
+	{
+		ZKOrig(void);
+		self.wantsLayer = YES;
+		self.layer.contents = [[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/MiniTitlebar.png", FilePath]];
+	}
+@end
+
 
 @implementation ToolbarBackground
 	-(void)viewDidMoveToSuperview
