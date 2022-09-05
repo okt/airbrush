@@ -154,13 +154,8 @@ ZKSwizzleInterface(TitlebarBackgroundFix, NSVisualEffectView, NSView)
 		ZKOrig(void);
 		if ([self.superview.className isEqual:@"NSTitlebarView"])
 		{
-			[self removeFromSuperview];
+			[self setAlphaValue:0.0];
 		}
-	}
-
-	-(BOOL)canDrawConcurrently
-	{
-		return YES;
 	}
 @end
 
