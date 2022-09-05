@@ -22,7 +22,7 @@ NSString *appID;
     +(void)load
 	{
 		FilePath = [[NSString alloc] initWithFormat:@"/Library/Airbrush"];
-		titlebarBlacklist = @[@"com.apple.Finder", @"com.google.Chrome", @"org.mozilla.firefox", @"com.apple.coreservices.uiagent"];
+		titlebarBlacklist = @[@"com.apple.Finder", @"com.google.Chrome", @"org.mozilla.firefox", @"com.apple.coreservices.uiagent", @"com.hnc.Discord"];
 		appID = [[NSBundle mainBundle] bundleIdentifier];
 		
 		[[NSFileManager defaultManager] createDirectoryAtPath: FilePath withIntermediateDirectories:YES attributes:nil error:nil];
@@ -150,9 +150,14 @@ ZKSwizzleInterface(TitlebarBackground, NSTitlebarView, NSView)
 @implementation TitlebarBackground
 	-(void)viewDidMoveToSuperview
 	{
+		BOOL isTheObjectThere = [titlebarBlacklist containsObject:appID];
 		ZKOrig(void);
-		self.wantsLayer = YES;
-		self.layer.contents = [[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/MiniTitlebar.png", FilePath]];
+		
+		if (!isTheObjectThere)
+		{
+			self.wantsLayer = YES;
+			self.layer.contents = [[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/MiniTitlebar.png", FilePath]];
+		}
 	}
 @end
 
