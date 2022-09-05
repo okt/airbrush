@@ -7,4 +7,4 @@
 
 #import <Cocoa/Cocoa.h>
 NSString *nine_slice;
-NSString *creator;
+NSString *button_slice;

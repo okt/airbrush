@@ -33,9 +33,11 @@ NSString *appID;
 			config = ini_load("/Library/Airbrush/Config.ini");
 			
 			nine_slice = [NSString stringWithUTF8String:ini_get(config, "Settings", "NineSlicing")];
+			button_slice = [NSString stringWithUTF8String:ini_get(config, "Settings", "ButtonSlicing")];
 		} else
 		{
 			nine_slice = @"17, 25, 17, 25";
+			button_slice = @"1, 1, 1, 1";
 		}
 	}
 @end
@@ -141,6 +143,50 @@ ZKSwizzleInterface(SegmentDrawing, NSToolbarItemViewer, NSView)
    {
 	   return YES;
    }
+@end
+
+#pragma mark More toolbar theming
+ZKSwizzleInterface(SegCtrl, NSSegmentedControl, NSView)
+ZKSwizzleInterface(ColorButtons, NSButton, NSView)
+
+@interface ColorButtons (BezelStyle)
+@property unsigned long long bezelStyle;
+@end
+
+@implementation ColorButtons
+	-(void)drawRect:(NSRect)dirtyRect
+	{
+		NSArray *slices = [button_slice componentsSeparatedByString:@","];
+		
+		// Draw DirtyRect
+		
+		//Draw custom
+		if ([self.superview.className isEqual:@"NSToolbarItemViewer"])
+		{
+			if (self.bezelStyle == NSBezelStyleTexturedRounded)
+			{
+				[[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/ToolbarButton.png", FilePath]] drawInRect:dirtyRect withCapInsets:TMEdgeInsetsMake([slices[0] floatValue], [slices[1] floatValue], [slices[2] floatValue], [slices[3] floatValue])];
+			}
+		}
+		ZKOrig(void, dirtyRect);
+
+	}
+@end
+
+@implementation SegCtrl
+	-(void)drawRect:(NSRect)dirtyRect
+	{
+		NSArray *slices = [button_slice componentsSeparatedByString:@","];
+		
+		// Draw DirtyRect
+		//Draw custom
+		if ([self.superview.className isEqual:@"NSToolbarItemViewer"])
+		{
+			[[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/ToolbarButton.png", FilePath]] drawInRect:dirtyRect withCapInsets:TMEdgeInsetsMake([slices[0] floatValue], [slices[1] floatValue], [slices[2] floatValue], [slices[3] floatValue])];
+		}
+		ZKOrig(void, dirtyRect);
+		
+	}
 @end
 
 #pragma mark Toolbar Backgrounds
