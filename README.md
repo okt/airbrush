@@ -1,10 +1,13 @@
-# Airbrush
-
-[![image]({https://img.shields.io/badge/Xcode-007ACC?style=for-the-badge&logo=Xcode&logoColor=white})](#)
-[![image]({(https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=apple&logoColor=white)})](#)
-[![image]({(https://img.shields.io/badge/apple%20silicon-333333?style=for-the-badge&logo=apple&logoColor=white)})](#)
+<h1 align="center">Airbrush</h1>
+<p align="center">
+  <img src="https://img.shields.io/badge/Xcode-007ACC?style=for-the-badge&logo=Xcode&logoColor=white" alt="Xcode" />
+  <img src="https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=apple&logoColor=white" alt="macOS" />
+  <img src="https://img.shields.io/badge/apple%20silicon-333333?style=for-the-badge&logo=apple&logoColor=white" alt="arm64e" />
+  <a href="https://discord.gg/tgGWqvep"><img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white"/></a>
+</p>
 
 **Airbrush** is a [MacForge](https://github.com/Marxon13/iOS-Asset-Extractor/blob/master/CARExtractor/CARExtractor/CARExporter.m) plugin designed to make it easier than ever to apply system wide themes to macOS 10.14 and above.
+<hr>
 
 ## Installation
 
@@ -21,7 +24,8 @@
 
 - 
 
-## Development
+## Help & Development
 
 - Please submit issues here: [submit](https://github.com/i-pwl/airbrush/issues/new)
-- Join the discussion: [![Discord]({https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white})](https://discord.gg/tgGWqvep)
+  
+- Join the discussion on Discord: https://discord.gg/tgGWqvep
