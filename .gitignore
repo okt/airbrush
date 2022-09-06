@@ -24,3 +24,7 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Xcode
+build/
+airbrush.xcodeproj/project.xcworkspace/xcuserdata/
