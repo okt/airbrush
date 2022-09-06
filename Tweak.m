@@ -21,7 +21,7 @@ NSString *appID;
     +(void)load
 	{
 		FilePath = [[NSString alloc] initWithFormat:@"/Library/Airbrush"];
-		titlebarBlacklist = @[@"com.apple.Finder", @"ooo.toysinc.colorninja", @"com.apple.TV", @"5584CR723U.ooo.toysinc.colorninja", @"com.spotify.client", @"com.google.Chrome", @"org.mozilla.firefox", @"com.apple.coreservices.uiagent", @"com.apple.Music", @"com.apple.podcasts", @"com.hnc.Discord"];
+		titlebarBlacklist = @[@"com.apple.Finder", @"com.microsoft.VSCode", @"ooo.toysinc.colorninja", @"com.apple.TV", @"5584CR723U.ooo.toysinc.colorninja", @"com.spotify.client", @"com.google.Chrome", @"org.mozilla.firefox", @"com.apple.coreservices.uiagent", @"com.apple.Music", @"com.apple.podcasts", @"com.hnc.Discord"];
 		appID = [[NSBundle mainBundle] bundleIdentifier];
 		
 		[[NSFileManager defaultManager] createDirectoryAtPath: FilePath withIntermediateDirectories:YES attributes:nil error:nil];
