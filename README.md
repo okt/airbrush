@@ -1,8 +1,8 @@
 # Airbrush
 
-![Xcode]({https://img.shields.io/badge/Xcode-007ACC?style=for-the-badge&logo=Xcode&logoColor=white})
-![macOS]({(https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=apple&logoColor=white)})
-![arm64e]({(https://img.shields.io/badge/apple%20silicon-333333?style=for-the-badge&logo=apple&logoColor=white)})
+![image]({https://img.shields.io/badge/Xcode-007ACC?style=for-the-badge&logo=Xcode&logoColor=white})
+![image]({(https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=apple&logoColor=white)})
+![image]({(https://img.shields.io/badge/apple%20silicon-333333?style=for-the-badge&logo=apple&logoColor=white)})
 
 **Airbrush** is a [MacForge](https://github.com/Marxon13/iOS-Asset-Extractor/blob/master/CARExtractor/CARExtractor/CARExporter.m) plugin designed to make it easier than ever to apply system wide themes to macOS 10.14 and above.
 
