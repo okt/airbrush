@@ -16,13 +16,12 @@ NSString *FilePath;
 NSArray *titlebarBlacklist;
 NSString *appID;
 
-
 @interface Main : NSObject {} @end
 @implementation Main
     +(void)load
 	{
 		FilePath = [[NSString alloc] initWithFormat:@"/Library/Airbrush"];
-		titlebarBlacklist = @[@"com.apple.Finder", @"com.google.Chrome", @"org.mozilla.firefox", @"com.apple.coreservices.uiagent", @"com.hnc.Discord"];
+		titlebarBlacklist = @[@"com.apple.Finder", @"ooo.toysinc.colorninja", @"com.apple.TV", @"5584CR723U.ooo.toysinc.colorninja", @"com.spotify.client", @"com.google.Chrome", @"org.mozilla.firefox", @"com.apple.coreservices.uiagent", @"com.apple.Music", @"com.apple.podcasts", @"com.hnc.Discord"];
 		appID = [[NSBundle mainBundle] bundleIdentifier];
 		
 		[[NSFileManager defaultManager] createDirectoryAtPath: FilePath withIntermediateDirectories:YES attributes:nil error:nil];
@@ -33,11 +32,15 @@ NSString *appID;
 			config = ini_load("/Library/Airbrush/Config.ini");
 			
 			nine_slice = [NSString stringWithUTF8String:ini_get(config, "Settings", "NineSlicing")];
-			button_slice = [NSString stringWithUTF8String:ini_get(config, "Settings", "ButtonSlicing")];
+			button_slice = [NSString stringWithUTF8String:ini_get(config, "Slices", "Button")];
+			segment_slice = [NSString stringWithUTF8String:ini_get(config, "Slices", "Segment")];
+			mini_segment_slice = [NSString stringWithUTF8String:ini_get(config, "Slices", "MiniSegment")];
 		} else
 		{
 			nine_slice = @"17, 25, 17, 25";
 			button_slice = @"1, 1, 1, 1";
+			segment_slice = @"14, 16, 22, 16";
+			mini_segment_slice = @"1, 1, 1, 1";
 		}
 	}
 @end
@@ -49,11 +52,11 @@ NSString *appID;
 @interface _NSThemeWidget : NSButton {} @end
 @interface _NSThemeZoomWidget : NSButton {} @end
 @interface _NSThemeCloseWidget : NSButton {} @end
-ZKSwizzleInterface(MinDrawing, _NSThemeWidget, NSButton)
+ZKSwizzleInterface(MinimizeDrawing, _NSThemeWidget, NSButton)
 ZKSwizzleInterface(ZoomDrawing, _NSThemeZoomWidget, NSButton)
 ZKSwizzleInterface(CloseDrawing, _NSThemeCloseWidget, NSButton)
 
-@implementation MinDrawing
+@implementation MinimizeDrawing
     -(void)drawRect:(NSRect)dirtyRect
     {
         dirtyRect.size.height = dirtyRect.size.width;
@@ -94,7 +97,8 @@ ZKSwizzleInterface(SegmentDrawing, NSToolbarItemViewer, NSView)
 @implementation SegmentDrawing
 	-(void)drawRect:(NSRect)dirtyRect
 	{
-		NSArray *slices = [nine_slice componentsSeparatedByString:@","];
+		NSArray *segmentSlices = [segment_slice componentsSeparatedByString:@","];
+		NSArray *miniSlices = [mini_segment_slice componentsSeparatedByString:@","];
 		
 		if (self.isSpace == NO)
 		{
@@ -107,7 +111,7 @@ ZKSwizzleInterface(SegmentDrawing, NSToolbarItemViewer, NSView)
 						 [[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/SegmentBackAlt.png", FilePath]] drawInRect:dirtyRect];
 					 } else
 					 {
-						 [[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/SegmentBack.png", FilePath]] drawInRect:dirtyRect withCapInsets:TMEdgeInsetsMake([slices[0] floatValue], [slices[1] floatValue], [slices[2] floatValue], [slices[3] floatValue])];
+						 [[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/SegmentBack.png", FilePath]] drawInRect:dirtyRect withCapInsets:TMEdgeInsetsMake([segmentSlices[0] floatValue], [segmentSlices[1] floatValue], [segmentSlices[2] floatValue], [segmentSlices[3] floatValue])];
 					 }
 				 } else
 				 {
@@ -116,7 +120,7 @@ ZKSwizzleInterface(SegmentDrawing, NSToolbarItemViewer, NSView)
 						 [[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/MiniSegmentBackAlt.png", FilePath]] drawInRect:dirtyRect];
 					 } else
 					 {
-						 [[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/MiniSegmentBack.png", FilePath]] drawInRect:dirtyRect withCapInsets:TMEdgeInsetsMake([slices[0] floatValue], [slices[1] floatValue], [slices[2] floatValue], [slices[3] floatValue])];
+						 [[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/MiniSegmentBack.png", FilePath]] drawInRect:dirtyRect withCapInsets:TMEdgeInsetsMake([miniSlices[0] floatValue], [miniSlices[1] floatValue], [miniSlices[2] floatValue], [miniSlices[3] floatValue])];
 					 }
 				 }
 			 } else
