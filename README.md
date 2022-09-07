@@ -52,7 +52,6 @@ Images can be configured with slicing margins (Top, Left, Bottom, Right), using 
 ```ini
 [Settings]
 Author = Bedtime
-NineSlicing = 14, 16, 22, 16
 
 [Slices]
 Segment = 14, 16, 22, 16
