@@ -12,10 +12,6 @@
 #import "NSImage+Stretchable.h"
 
 #pragma mark Main CTor
-NSString *FilePath;
-NSArray *titlebarBlacklist;
-NSString *appID;
-
 @interface Main : NSObject {} @end
 @implementation Main
     +(void)load
@@ -24,13 +20,6 @@ NSString *appID;
 	}
 @end
 
-
-@interface _NSThemeWidget : NSButton {} @end
-ZKSwizzleInterface(MinimizeButton, _NSThemeWidget, NSButton)
-@implementation MinimizeButton
-    -(void)drawRect:(NSRect)dirtyRect
-    {
-        dirtyRect.size.height = dirtyRect.size.width;
-        [[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/Minimize.png", FilePath]] drawInRect:dirtyRect];
-    }
-@end
+// EX: A hook.
+// @interface _NSThemeWidget : NSButton {} @end
+// ZKSwizzleInterface(MinimizeButton, _NSThemeWidget, NSButton)
