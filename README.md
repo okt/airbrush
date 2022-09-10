@@ -12,11 +12,11 @@
 
 ## Installation
 
-0. Install [MacForge](https://github.com/MacEnhance/MacForge)
-1. Download the latest [Release](https://github.com/i-pwl/airbrush/releases)
-2. Unzip the `airbrush.zip` contents to: `/Library/Application Support/MacEnhance/Plugins (Disabled)`
-3. Unzip your theme of choice to: `/Library/Airbrush`
-4. Launch MacForge and enable the **Airbrush** plugin
+1. Install [MacForge](https://github.com/MacEnhance/MacForge)
+2. Download the latest [Release](https://github.com/i-pwl/airbrush/releases)
+3. Unzip the `airbrush.zip` contents to: `/Library/Application Support/MacEnhance/Plugins (Disabled)`
+4. Unzip your theme of choice to: `/Library/Airbrush`
+5. Launch MacForge and enable the **Airbrush** plugin
 
 
 ## Theme Creation
