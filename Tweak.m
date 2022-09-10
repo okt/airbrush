@@ -6,10 +6,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "ini.h"
-#import "Prefs.h"
 #import "ZKSwizzle.h"
-#import "NSImage+Stretchable.h"
 
 #pragma mark Main CTor
 @interface Main : NSObject {} @end
