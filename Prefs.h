@@ -6,7 +6,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-NSString *nine_slice;
+BOOL *blackTitlebar;
 NSString *button_slice;
 NSString *segment_slice;
 NSString *mini_segment_slice;

@@ -37,28 +37,28 @@ TMEdgeInsets TMEdgeInsetsMake (CGFloat top,
                                 capInsets.left, capInsets.bottom)
             fromRect:NSMakeRect(0.0, 0.0,
                                 capInsets.left, capInsets.bottom)
-           operation:NSCompositingOperationSourceOver fraction:0.5];
+           operation:NSCompositingOperationCopy fraction:1.0];
     
     //top left
     [self drawInRect:NSMakeRect(rect.origin.x, rect.origin.y + rect.size.height - capInsets.top,
                                 capInsets.left, capInsets.top)
             fromRect:NSMakeRect(0.0, self.size.height - capInsets.top,
                                 capInsets.left, capInsets.top)
-           operation:NSCompositingOperationSourceOver fraction:0.5];
+           operation:NSCompositingOperationCopy fraction:1.0];
     
     //top right
     [self drawInRect:NSMakeRect(rect.origin.x + rect.size.width - capInsets.right, rect.origin.y + rect.size.height - capInsets.top,
                                 capInsets.right, capInsets.top)
             fromRect:NSMakeRect(self.size.width - capInsets.right, self.size.height - capInsets.top,
                                 capInsets.right, capInsets.top)
-           operation:NSCompositingOperationSourceOver fraction:0.5];
+           operation:NSCompositingOperationCopy fraction:1.0];
     
     //bottom right
     [self drawInRect:NSMakeRect(rect.origin.x + rect.size.width - capInsets.right, rect.origin.y,
                                 capInsets.right, capInsets.bottom)
             fromRect:NSMakeRect(self.size.width - capInsets.right, 0.0,
                                 capInsets.right, capInsets.bottom)
-           operation:NSCompositingOperationSourceOver fraction:0.5];
+           operation:NSCompositingOperationCopy fraction:1.0];
     
     
     //bottom center
@@ -66,28 +66,28 @@ TMEdgeInsets TMEdgeInsetsMake (CGFloat top,
                                 rect.size.width - capInsets.right - capInsets.left, capInsets.bottom)
             fromRect:NSMakeRect(capInsets.left, 0.0,
                                 self.size.width - capInsets.right - capInsets.left, capInsets.bottom)
-           operation:NSCompositingOperationSourceOver fraction:0.5];
+           operation:NSCompositingOperationCopy fraction:1.0];
     
     //top center
     [self drawInRect:NSMakeRect(rect.origin.x + capInsets.left, rect.origin.y + rect.size.height - capInsets.top,
                                 rect.size.width - capInsets.right - capInsets.left, capInsets.top)
             fromRect:NSMakeRect(capInsets.left, self.size.height - capInsets.top,
                                 self.size.width - capInsets.right - capInsets.left, capInsets.top)
-           operation:NSCompositingOperationSourceOver fraction:0.5];
+           operation:NSCompositingOperationCopy fraction:1.0];
     
     //left center
     [self drawInRect:NSMakeRect(rect.origin.x, rect.origin.y + capInsets.bottom,
                                 capInsets.left, rect.size.height - capInsets.top - capInsets.bottom)
             fromRect:NSMakeRect(0.0, capInsets.bottom,
                                 capInsets.left, self.size.height - capInsets.top - capInsets.bottom)
-           operation:NSCompositingOperationSourceOver fraction:0.5];
+           operation:NSCompositingOperationCopy fraction:1.0];
     
     //right center
     [self drawInRect:NSMakeRect(rect.origin.x + rect.size.width - capInsets.right, rect.origin.y + capInsets.bottom,
                                 capInsets.right, rect.size.height - capInsets.top - capInsets.bottom)
             fromRect:NSMakeRect(self.size.width - capInsets.right, capInsets.bottom,
                                 capInsets.right, self.size.height - capInsets.top - capInsets.bottom)
-           operation:NSCompositingOperationSourceOver fraction:0.5];
+           operation:NSCompositingOperationCopy fraction:1.0];
     
     
     //center center
@@ -95,7 +95,7 @@ TMEdgeInsets TMEdgeInsetsMake (CGFloat top,
                                 rect.size.width - capInsets.right - capInsets.left, rect.size.height - capInsets.top - capInsets.bottom)
             fromRect:NSMakeRect(capInsets.left, capInsets.bottom,
                                 self.size.width - capInsets.right - capInsets.left, self.size.height - capInsets.top - capInsets.bottom)
-           operation:NSCompositingOperationSourceOver fraction:0.5];
+           operation:NSCompositingOperationCopy fraction:1.0];
 }
 
 @end

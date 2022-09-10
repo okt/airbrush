@@ -21,7 +21,7 @@ NSString *appID;
     +(void)load
 	{
 		FilePath = [[NSString alloc] initWithFormat:@"/Library/Airbrush"];
-		titlebarBlacklist = @[@"com.apple.Finder", @"com.microsoft.VSCode", @"ooo.toysinc.colorninja", @"com.apple.TV", @"5584CR723U.ooo.toysinc.colorninja", @"com.spotify.client", @"com.google.Chrome", @"org.mozilla.firefox", @"com.apple.coreservices.uiagent", @"com.apple.Music", @"com.apple.podcasts", @"com.hnc.Discord"];
+		titlebarBlacklist = @[@"com.apple.finder", @"com.microsoft.VSCode", @"ooo.toysinc.colorninja", @"com.apple.TV", @"5584CR723U.ooo.toysinc.colorninja", @"com.spotify.client", @"com.google.Chrome", @"org.mozilla.firefox", @"com.apple.coreservices.uiagent", @"com.apple.Music", @"com.apple.podcasts", @"com.hnc.Discord"];
 		appID = [[NSBundle mainBundle] bundleIdentifier];
 		
 		[[NSFileManager defaultManager] createDirectoryAtPath: FilePath withIntermediateDirectories:YES attributes:nil error:nil];
@@ -31,13 +31,14 @@ NSString *appID;
 			ini_t *config;
 			config = ini_load("/Library/Airbrush/Config.ini");
 			
-			nine_slice = [NSString stringWithUTF8String:ini_get(config, "Settings", "NineSlicing")];
+			blackTitlebar = [[NSString stringWithUTF8String:ini_get(config, "Settings", "DarkTitlebar")] boolValue];
+			
 			button_slice = [NSString stringWithUTF8String:ini_get(config, "Slices", "Button")];
 			segment_slice = [NSString stringWithUTF8String:ini_get(config, "Slices", "Segment")];
 			mini_segment_slice = [NSString stringWithUTF8String:ini_get(config, "Slices", "MiniSegment")];
 		} else
 		{
-			nine_slice = @"17, 25, 17, 25";
+			blackTitlebar = NO;
 			button_slice = @"1, 1, 1, 1";
 			segment_slice = @"14, 16, 22, 16";
 			mini_segment_slice = @"1, 1, 1, 1";
@@ -52,25 +53,25 @@ NSString *appID;
 @interface _NSThemeWidget : NSButton {} @end
 @interface _NSThemeZoomWidget : NSButton {} @end
 @interface _NSThemeCloseWidget : NSButton {} @end
-ZKSwizzleInterface(MinimizeDrawing, _NSThemeWidget, NSButton)
-ZKSwizzleInterface(ZoomDrawing, _NSThemeZoomWidget, NSButton)
-ZKSwizzleInterface(CloseDrawing, _NSThemeCloseWidget, NSButton)
+ZKSwizzleInterface(MinimizeButton, _NSThemeWidget, NSButton)
+ZKSwizzleInterface(ZoomButton, _NSThemeZoomWidget, NSButton)
+ZKSwizzleInterface(CloseButton, _NSThemeCloseWidget, NSButton)
 
-@implementation MinimizeDrawing
+@implementation MinimizeButton
     -(void)drawRect:(NSRect)dirtyRect
     {
         dirtyRect.size.height = dirtyRect.size.width;
         [[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/Minimize.png", FilePath]] drawInRect:dirtyRect];
     }
 @end
-@implementation CloseDrawing
+@implementation CloseButton
     -(void)drawRect:(NSRect)dirtyRect
     {
         dirtyRect.size.height = dirtyRect.size.width;
         [[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/Close.png", FilePath]] drawInRect:dirtyRect];
     }
 @end
-@implementation ZoomDrawing
+@implementation ZoomButton
 	-(void)drawRect:(NSRect)dirtyRect
 	{
 		dirtyRect.size.height = dirtyRect.size.width;
@@ -80,10 +81,10 @@ ZKSwizzleInterface(CloseDrawing, _NSThemeCloseWidget, NSButton)
 
 
 #pragma mark Toolbar Control Theming
-ZKSwizzleInterface(SegmentSetDrawsBezel, NSSegmentItemView, NSButton)
-ZKSwizzleInterface(SegmentDrawing, NSToolbarItemViewer, NSView)
+ZKSwizzleInterface(BezelFix, NSSegmentItemView, NSButton)
+ZKSwizzleInterface(Segment, NSToolbarItemViewer, NSView)
 
-@implementation SegmentSetDrawsBezel
+@implementation BezelFix
 	-(void)drawRect:(NSRect)dirtyRect
 	{
 		[self setDrawsBezel: NO];
@@ -94,7 +95,7 @@ ZKSwizzleInterface(SegmentDrawing, NSToolbarItemViewer, NSView)
 		ZKOrig(void, NO);
 	}
 @end
-@implementation SegmentDrawing
+@implementation Segment
 	-(void)drawRect:(NSRect)dirtyRect
 	{
 		NSArray *segmentSlices = [segment_slice componentsSeparatedByString:@","];
@@ -133,11 +134,6 @@ ZKSwizzleInterface(SegmentDrawing, NSToolbarItemViewer, NSView)
 		}
 	}
 
-	-(BOOL)_shouldDrawFocus
-	{
-	  return NO;
-	}
-
 	-(BOOL)canDrawSubviewsIntoLayer
    {
 	   return YES;
@@ -150,21 +146,36 @@ ZKSwizzleInterface(SegmentDrawing, NSToolbarItemViewer, NSView)
 @end
 
 #pragma mark More toolbar theming
-ZKSwizzleInterface(SegCtrl, NSSegmentedControl, NSView)
-ZKSwizzleInterface(ColorButtons, NSButton, NSView)
+ZKSwizzleInterface(Segments, NSSegmentedControl, NSView)
+ZKSwizzleInterface(Bezels, NSButton, NSView)
 
-@interface ColorButtons (BezelStyle)
+@interface Bezels (BezelStyle)
 @property unsigned long long bezelStyle;
 @end
 
-@implementation ColorButtons
+
+@implementation Segments
 	-(void)drawRect:(NSRect)dirtyRect
 	{
 		NSArray *slices = [button_slice componentsSeparatedByString:@","];
 		
-		// Draw DirtyRect
 		
-		//Draw custom
+		// Draw Custom
+		if ([self.superview.className isEqual:@"NSToolbarItemViewer"])
+		{
+			[[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/ToolbarButton.png", FilePath]] drawInRect:dirtyRect withCapInsets:TMEdgeInsetsMake([slices[0] floatValue], [slices[1] floatValue], [slices[2] floatValue], [slices[3] floatValue])];
+		}
+		ZKOrig(void, dirtyRect);
+		
+	}
+@end
+@implementation Bezels
+	-(void)drawRect:(NSRect)dirtyRect
+	{
+		NSArray *slices = [button_slice componentsSeparatedByString:@","];
+		
+
+		// Draw Custom
 		if ([self.superview.className isEqual:@"NSToolbarItemViewer"])
 		{
 			if (self.bezelStyle == NSBezelStyleTexturedRounded)
@@ -177,28 +188,12 @@ ZKSwizzleInterface(ColorButtons, NSButton, NSView)
 	}
 @end
 
-@implementation SegCtrl
-	-(void)drawRect:(NSRect)dirtyRect
-	{
-		NSArray *slices = [button_slice componentsSeparatedByString:@","];
-		
-		// Draw DirtyRect
-		//Draw custom
-		if ([self.superview.className isEqual:@"NSToolbarItemViewer"])
-		{
-			[[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/ToolbarButton.png", FilePath]] drawInRect:dirtyRect withCapInsets:TMEdgeInsetsMake([slices[0] floatValue], [slices[1] floatValue], [slices[2] floatValue], [slices[3] floatValue])];
-		}
-		ZKOrig(void, dirtyRect);
-		
-	}
-@end
-
 #pragma mark Toolbar Backgrounds
-ZKSwizzleInterface(ToolbarBackground, NSToolbarView, NSView)
-ZKSwizzleInterface(TitlebarBackground, NSTitlebarView, NSView)
-ZKSwizzleInterface(TitlebarBackgroundFix, NSVisualEffectView, NSView)
+ZKSwizzleInterface(Toolbar, NSToolbarView, NSView)
+ZKSwizzleInterface(Titlebar, NSTitlebarView, NSView)
+ZKSwizzleInterface(TitlebarFix, NSVisualEffectView, NSView)
 
-@implementation TitlebarBackgroundFix
+@implementation TitlebarFix
 	-(void)updateLayer
 	{
 		ZKOrig(void);
@@ -210,7 +205,7 @@ ZKSwizzleInterface(TitlebarBackgroundFix, NSVisualEffectView, NSView)
 @end
 
 
-@implementation TitlebarBackground
+@implementation Titlebar
 	-(void)viewDidMoveToSuperview
 	{
 		BOOL isTheObjectThere = [titlebarBlacklist containsObject:appID];
@@ -221,11 +216,19 @@ ZKSwizzleInterface(TitlebarBackgroundFix, NSVisualEffectView, NSView)
 			self.wantsLayer = YES;
 			self.layer.contents = [[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/MiniTitlebar.png", FilePath]];
 		}
+		
+		if (blackTitlebar)
+		{
+			[self setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameDarkAqua]];
+		} else
+		{
+			[self setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameAqua]];
+		}
 	}
 @end
 
 
-@implementation ToolbarBackground
+@implementation Toolbar
 	-(void)viewDidMoveToSuperview
 	{
 		ZKOrig(void);
