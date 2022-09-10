@@ -192,6 +192,7 @@ ZKSwizzleInterface(Bezels, NSButton, NSView)
 ZKSwizzleInterface(Toolbar, NSToolbarView, NSView)
 ZKSwizzleInterface(Titlebar, NSTitlebarView, NSView)
 ZKSwizzleInterface(TitlebarFix, NSVisualEffectView, NSView)
+ZKSwizzleInterface(Tabs, NSTabBar, NSView)
 
 @implementation TitlebarFix
 	-(void)updateLayer
@@ -240,5 +241,14 @@ ZKSwizzleInterface(TitlebarFix, NSVisualEffectView, NSView)
 			self.wantsLayer = YES;
 			self.layer.contents = [[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/MiniTitlebar.png", FilePath]];
 		}
+	}
+@end
+
+@implementation Tabs
+	-(void)viewDidMoveToSuperview
+	{
+		ZKOrig(void);
+		self.wantsLayer = YES;
+		self.layer.contents = [[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/Tabs.png", FilePath]];
 	}
 @end
