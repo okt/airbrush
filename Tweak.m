@@ -38,7 +38,7 @@ NSString *appID;
 			mini_segment_slice = [NSString stringWithUTF8String:ini_get(config, "Slices", "MiniSegment")];
 		} else
 		{
-			blackTitlebar = NO;
+			blackTitlebar = false;
 			button_slice = @"1, 1, 1, 1";
 			segment_slice = @"14, 16, 22, 16";
 			mini_segment_slice = @"1, 1, 1, 1";
@@ -46,7 +46,7 @@ NSString *appID;
 	}
 @end
 
-#pragma mark Window Button Controls
+#pragma mark Button Controls / Scaling
 @interface NSView ()
 @property(readonly) BOOL isSpace;
 @end
@@ -62,6 +62,7 @@ ZKSwizzleInterface(CloseButton, _NSThemeCloseWidget, NSButton)
     {
         dirtyRect.size.height = dirtyRect.size.width;
         [[[NSImage alloc] initWithContentsOfFile: [NSString stringWithFormat:@"%@/Minimize.png", FilePath]] drawInRect:dirtyRect];
+		
     }
 @end
 @implementation CloseButton
