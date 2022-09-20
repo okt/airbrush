@@ -6,28 +6,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
-<<<<<<< Updated upstream
-#import "ZKSwizzle.h"
-
-#pragma mark Main CTor
-=======
 #import <CoreGraphics/CoreGraphics.h>
 #import "ZKSwizzle.h"
 
->>>>>>> Stashed changes
 @interface Main : NSObject {} @end
 @implementation Main
-    +(void)load
+	+(void)load
 	{
-<<<<<<< Updated upstream
-		NSLog(@"We in.");
-	}
-@end
-
-// EX: A hook.
-// @interface _NSThemeWidget : NSButton {} @end
-// ZKSwizzleInterface(MinimizeButton, _NSThemeWidget, NSButton)
-=======
 		NSLog(@"Loaded.");
 	}
 @end
@@ -64,4 +49,3 @@ ZKSwizzleInterface(RawPixelRenditionHook, _CUIRawPixelRendition, NSObject)
 		if (image) { return image; } else { return ZKOrig(struct CGImage *); }
 	}
 @end
->>>>>>> Stashed changes
